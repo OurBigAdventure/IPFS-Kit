@@ -44,7 +44,7 @@ private func trimString(theString: String) -> String? {
         return trimmedString
         
     } catch {
-        GraniteLogger.info("Regular expression failed \(error)")
+        print("Regular expression failed \(error)")
         return nil
     }
 }

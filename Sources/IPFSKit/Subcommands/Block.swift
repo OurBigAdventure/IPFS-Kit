@@ -31,7 +31,7 @@ public class Block : ClientSubCommand {
                 
                 completionHandler(try merkleNodeFromJson(json as AnyObject))
             } catch {
-                GraniteLogger.info("Block Error:\(error)")
+                print("Block Error:\(error)")
             }
         }
     }

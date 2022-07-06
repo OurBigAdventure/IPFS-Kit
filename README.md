@@ -36,7 +36,7 @@ if let data = result.data.pngData() {
             // use 'nodes' to pin content
         }
     } catch let error {
-        GraniteLogger.info("error adding new image:\n\(error)", .expedition, focus: true)
+        print("error adding new image:\n\(error)", .expedition, focus: true)
     }
 }
 
@@ -54,6 +54,6 @@ do {
         }
     }
 } catch let error {
-    GraniteLogger.info("error pinning:\n\(error)", .expedition, focus: true)
+    print("error pinning:\n\(error)", .expedition, focus: true)
 }
 ```

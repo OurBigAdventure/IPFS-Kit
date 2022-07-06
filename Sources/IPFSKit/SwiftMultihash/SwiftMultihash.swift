@@ -169,10 +169,10 @@ public func decodeBuf(_ buf: [UInt8]) throws -> DecodedMultihash {
     let dm = DecodedMultihash(code: Int(code), name: Codes[Int(code)], length: Int(digestLength), digest: buf)
     
     let strbuf = buf.map { String(format:"%02X ", $0) }.joined()
-    GraniteLogger.info("the buf is \(strbuf)")
+    print("the buf is \(strbuf)")
 
 //    let b0 = varInt(buf) //Int(buf[0])
-//    GraniteLogger.info("The var int read is \(b0.0) and was \(b0.1) bytes")
+//    print("The var int read is \(b0.0) and was \(b0.1) bytes")
 
     if dm.digest.count != dm.length {
         throw MultihashError.inconsistentLength(dm.length)

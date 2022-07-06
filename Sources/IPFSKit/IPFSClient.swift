@@ -62,7 +62,7 @@ extension IPFSBase {
 //	if stream.hasBytesAvailable {
 //	//let result :Int = stream.read(&buffer, maxLength: buffer.count)
 //	let myson = try JSONSerialization.jsonObject(with: stream)
-//	GraniteLogger.info("streams \(myson)")
+//	print("streams \(myson)")
 //	}
 //	stream.close()
 	
@@ -77,9 +77,9 @@ extension IPFSBase {
                 return
             }
             
-            GraniteLogger.info("The data: \(NSString(data: data, encoding: String.Encoding.utf8.rawValue) as String? ?? "failed to conv. str")")
+            print("The data: \(NSString(data: data, encoding: String.Encoding.utf8.rawValue) as String? ?? "failed to conv. str")")
             let fixedData: Data = fixStreamJson(data)
-            GraniteLogger.info("The fixed data: \(NSString(data: fixedData, encoding: String.Encoding.utf8.rawValue) as String? ?? "failed to conv. str")")
+            print("The fixed data: \(NSString(data: fixedData, encoding: String.Encoding.utf8.rawValue) as String? ?? "failed to conv. str")")
 			
 			var json: Any
 			do {
@@ -256,7 +256,7 @@ public class IPFSClient: IPFSBase {
                 completionHandler( result )
                 
             } catch {
-                GraniteLogger.info("Error inside add completion handler: \(error)")
+                print("Error inside add completion handler: \(error)")
             }
         }
     }
@@ -272,7 +272,7 @@ public class IPFSClient: IPFSBase {
                 let fixedData = fixStreamJson(data)
                 
                 let json = JsonType.parse(try JSONSerialization.jsonObject(with: fixedData, options: JSONSerialization.ReadingOptions.allowFragments) as AnyObject)
-                GraniteLogger.info(json)
+                print(json)
                 
                 let res = try merkleNodesFromJson(json)
                 guard res.count > 0 else { throw IpfsApiError.jsonSerializationFailed }
@@ -283,7 +283,7 @@ public class IPFSClient: IPFSBase {
                 completionHandler( result )
                 
             } catch {
-                GraniteLogger.info("Error inside add completion handler: \(error)")
+                print("Error inside add completion handler: \(error)")
             }
         }
     }
@@ -412,11 +412,11 @@ public class IPFSClient: IPFSBase {
                 
             if let arr = json as? [AnyObject] {
                 for res in arr {
-                    GraniteLogger.info(res)
+                    print(res)
                 }
             } else {
                 if let dict = json as? [String: AnyObject] {
-                    GraniteLogger.info("It's a dict!: \(dict)")
+                    print("It's a dict!: \(dict)")
                 }
             }
             return true

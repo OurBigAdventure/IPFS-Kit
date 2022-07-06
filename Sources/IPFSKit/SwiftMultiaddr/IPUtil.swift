@@ -244,7 +244,7 @@ func expandEllipsis(_ ipBytes: IP, bytesWritten: Int, ellipsisIndex: Int) throws
     
     /// move the values after the ellipsis to the end of the output string
 //    for var k = bytesWritten - 1 ; k >= ellipsisIndex ; k -= 1 {
-//        GraniteLogger.info("k1 \(k)")
+//        print("k1 \(k)")
 //    }
     for k in (ellipsisIndex...bytesWritten - 1).reversed() {
         ip[k+bytesLeft] = ip[k]

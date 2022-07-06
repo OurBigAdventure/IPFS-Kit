@@ -49,8 +49,8 @@ public class Refs : ClientSubCommand {
             //            let multiAddrs = try dataString.split(separator: "\n").map(String.init).map{ try fromB58String($0) }
             let c = try refs.map{ reference -> Multihash in
                 //try fromB58String($0.Ref)
-                GraniteLogger.info("reference is \(reference.Ref)")
-                GraniteLogger.info("error is \(reference.Err)")
+                print("reference is \(reference.Ref)")
+                print("error is \(reference.Err)")
                 return try fromB58String(reference.Ref)
             }
             let multiAddrs = c

@@ -104,9 +104,9 @@ public func _merkleNodesFromJson(_ rawJson: JsonType) throws -> [MerkleNode?] {
         var curMerkle = MerkleData()
         
         for obj in arr {
-//            GraniteLogger.info("arr obj is \(obj)")
+//            print("arr obj is \(obj)")
 //            let name = obj.object?["Name"]!
-//            GraniteLogger.info("name is \(name)")
+//            print("name is \(name)")
             
             /// Go through all values for the object and add them to the merkledata
             for (key, value) in obj.object! {
@@ -124,7 +124,7 @@ public func _merkleNodesFromJson(_ rawJson: JsonType) throws -> [MerkleNode?] {
 //                    }
                     
                 case "Bytes", "Size":
-//                    guard curMerkle != nil else { GraniteLogger.info("Bytes, no current merkle!") ; continue }
+//                    guard curMerkle != nil else { print("Bytes, no current merkle!") ; continue }
                     guard let bytes = value.number?.intValue else { continue }
 
                     /// Add to previous size if it exists.
@@ -134,7 +134,7 @@ public func _merkleNodesFromJson(_ rawJson: JsonType) throws -> [MerkleNode?] {
 //                    merkles[curMerkle!.name!] = curMerkle
                     
                 case "Hash":
-//                    guard curMerkle != nil else { GraniteLogger.info("Hash, no current merkle!") ; continue }
+//                    guard curMerkle != nil else { print("Hash, no current merkle!") ; continue }
 //                    curMerkle?.hash = value.string
                     curMerkle.hash = value.string
                     /** The hash marks the end of the objects of a given name, so 
@@ -146,11 +146,11 @@ public func _merkleNodesFromJson(_ rawJson: JsonType) throws -> [MerkleNode?] {
                     curMerkle = MerkleData()
                     
                 case "Type":
-//                    guard curMerkle != nil else { GraniteLogger.info("Type, no current merkle!") ; continue }
+//                    guard curMerkle != nil else { print("Type, no current merkle!") ; continue }
 //                    curMerkle?.type = value.number?.intValue
                       curMerkle.type = value.number?.intValue
                 case "Links":
-//                    guard curMerkle != nil else { GraniteLogger.info("Links, no current merkle!") ; continue }
+//                    guard curMerkle != nil else { print("Links, no current merkle!") ; continue }
                     
                     if let rawLinks = value.array {
 //                        curMerkle?.links = try rawLinks.map { try merkleNodeFromJson2($0) }
@@ -165,7 +165,7 @@ public func _merkleNodesFromJson(_ rawJson: JsonType) throws -> [MerkleNode?] {
                     }
 
                 case "Data":
-//                    guard curMerkle != nil else { GraniteLogger.info("Data, no current merkle!") ; continue }
+//                    guard curMerkle != nil else { print("Data, no current merkle!") ; continue }
                     if let strDat = value.string {
 //                        curMerkle!.data = [UInt8](strDat.utf8)
                         curMerkle.data = [UInt8](strDat.utf8)
@@ -179,7 +179,7 @@ public func _merkleNodesFromJson(_ rawJson: JsonType) throws -> [MerkleNode?] {
                     return try merkleNodesFromJson(JsonType.Array(objects))
                     
                 default:
-                    GraniteLogger.info("\(key) Not yet handled")
+                    print("\(key) Not yet handled")
                 }
             }
         }

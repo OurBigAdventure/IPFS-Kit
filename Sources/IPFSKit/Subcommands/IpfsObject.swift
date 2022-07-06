@@ -54,14 +54,14 @@ public class IpfsObject : ClientSubCommand {
             result in
             
             do {
-                GraniteLogger.info(result)
+                print(result)
                 guard let json = try JSONSerialization.jsonObject(with: result, options: JSONSerialization.ReadingOptions.allowFragments) as? [String : AnyObject] else {
                     throw IpfsApiError.jsonSerializationFailed
                 }
                 
                 completionHandler(try merkleNodeFromJson(json as AnyObject))
             } catch {
-                GraniteLogger.info("IpfsObject Error:\(error)")
+                print("IpfsObject Error:\(error)")
             }
         }
     }
@@ -119,19 +119,19 @@ public class IpfsObject : ClientSubCommand {
         var request: String = "object/patch"
         switch cmd {
         case .AddLink:
-            GraniteLogger.info("patch add link")
+            print("patch add link")
             guard args.count == 2 else {
                 throw IpfsApiError.ipfsObjectError("Wrong number of arguments to \(cmd.rawValue)")
             }
             request += "/add-link"
         case .RmLink:
-            GraniteLogger.info("patch remove link")
+            print("patch remove link")
             request += "/rm-link"
         case .SetData:
-            GraniteLogger.info("patch set data")
+            print("patch set data")
             request += "/set-data"
         case .AppendData:
-            GraniteLogger.info("patch append data")
+            print("patch append data")
             request += "/append-data"
         }
         

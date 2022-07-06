@@ -42,11 +42,13 @@ public class Name : ClientSubCommand {
         var request = "name/publish?arg=\(path)"
 
         
-        let lifetime = args?[.lifetime] ?? "24h"
-        let resolve = args?[.resolve] ?? "true"
-        
-        request += "&lifetime=\(lifetime)&resolve=\(resolve)"
-        
+      if let lifetime = args?[.lifetime] {
+        request += "&lifetime=\(lifetime)"
+      }
+      if let resolve = args?[.resolve] {
+        request += "&resolve=\(resolve)"
+      }
+
         try parent!.fetchJson(request, completionHandler: completionHandler)
     }
 
@@ -63,7 +65,7 @@ public class Name : ClientSubCommand {
         }
 //        try parent!.fetchData(request) {
 //            (rawJson: NSData) in
-//            GraniteLogger.info(rawJson)
+//            print(rawJson)
 //            
 //            guard let json = try NSJSONSerialization.JSONObjectWithData(rawJson, options: NSJSONReadingOptions.AllowFragments) as? [String : AnyObject] else { throw IpfsApiError.JsonSerializationFailed
 //            }

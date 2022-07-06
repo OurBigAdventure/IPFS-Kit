@@ -19,7 +19,7 @@ public struct HttpIo : NetworkIo {
 
     public func receiveFrom(_ source: String, completionHandler: @escaping (Data) throws -> Void) throws {
         guard let url = URL(string: source) else { throw HttpIoError.urlError("Invalid URL") }
-        GraniteLogger.info("HttpIo receiveFrom url is \(url)")
+        print("HttpIo receiveFrom url is \(url)")
         let task = URLSession.shared.dataTask(with: url) {
             (data: Data?, response: URLResponse?, error: Error?) in
             
@@ -27,12 +27,12 @@ public struct HttpIo : NetworkIo {
                 guard error == nil else { throw HttpIoError.transmissionError((error?.localizedDescription)!) }
                 guard let data = data else { throw IpfsApiError.nilData }
                 
-//                GraniteLogger.info("The data:",NSString(data: data, encoding: String.Encoding.utf8.rawValue))
+//                print("The data:",NSString(data: data, encoding: String.Encoding.utf8.rawValue))
                 
                 try completionHandler(data)
                 
             } catch {
-                GraniteLogger.info("Error \(error) in completionHandler passed to fetchData ")
+                print("Error \(error) in completionHandler passed to fetchData ")
             }
         }
         
@@ -116,7 +116,7 @@ public struct HttpIo : NetworkIo {
         
         /// At this point we could decide to stop the task.
         if task.countOfBytesReceived > 1024 {
-            GraniteLogger.info("fetch task cancel")
+            print("fetch task cancel")
             task.cancel()
         }
     }
@@ -124,7 +124,7 @@ public struct HttpIo : NetworkIo {
     func fetchCompletionHandler(_ result: AnyObject) {
         
         for res in result as! [[String : AnyObject]] {
-            GraniteLogger.info("\(res)")
+            print("\(res)")
         }
     }
 }
@@ -149,7 +149,7 @@ public class StreamHandler : NSObject, URLSessionDataDelegate {
             // FIX: Use the return value of the update handler to signal that we want to end the stream.
             try _ = updateHandler(data, dataTask)
         } catch {
-            GraniteLogger.info("In StreamHandler: updateHandler error: \(error)")
+            print("In StreamHandler: updateHandler error: \(error)")
         }
     }
     
@@ -159,7 +159,7 @@ public class StreamHandler : NSObject, URLSessionDataDelegate {
         do {
             try completionHandler(dataStore)
         } catch {
-            GraniteLogger.info("In StreamHandler: completionHandler error: \(error)")
+            print("In StreamHandler: completionHandler error: \(error)")
         }
     }
 }
