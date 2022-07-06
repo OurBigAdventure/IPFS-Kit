@@ -133,12 +133,12 @@ public func fromHexString(_ theString: String) throws -> Multihash {
 }
 
 public func b58String(_ mhash: Multihash) -> String {
-    return Granite58.encode(mhash.value)
+    return Coder58.encode(mhash.value)
 }
 
 
 public func fromB58String(_ str: String) throws -> Multihash {
-    let decodedBytes = Granite58.decode(str)
+    let decodedBytes = Coder58.decode(str)
     return try cast(decodedBytes)
 }
 
