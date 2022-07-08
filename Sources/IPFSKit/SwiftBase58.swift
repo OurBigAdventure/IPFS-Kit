@@ -17,7 +17,7 @@ public enum Alphabet {
 
 /// Encoder / Decoder for base58 String <-> Data conversions
 public class Coder58 {
-
+  
   /// Convert base58 bytes to String
   /// - Parameters:
   ///   - bytes: ([UInt8]) bytes to convert
@@ -27,23 +27,23 @@ public class Coder58 {
                            alphabet: [UInt8] = Alphabet.btc) -> String {
     var x = BigUInt(Data(bytes))
     let radix = BigUInt(alphabet.count)
-
+    
     var answer = [UInt8]()
     answer.reserveCapacity(bytes.count)
-
+    
     while x > 0 {
       let (quotient, modulus) = x.quotientAndRemainder(dividingBy: radix)
       answer.append(alphabet[Int(modulus)])
       x = quotient
     }
-
+    
     let prefix = Array(bytes.prefix(while: {$0 == 0})).map { _ in alphabet[0] }
     answer.append(contentsOf: prefix)
     answer.reverse()
-
+    
     return String(bytes: answer, encoding: String.Encoding.utf8) ?? ""
   }
-
+  
   /// Convert base58 string to bytes
   /// - Parameters:
   ///   - string: (String) base58 string to convert
@@ -55,7 +55,7 @@ public class Coder58 {
     var j = BigUInt(1)
     let radix = BigUInt(alphabet.count)
     let byteString = [UInt8](string.utf8)
-
+    
     for ch in byteString.reversed() {
       if let index = alphabet.firstIndex(of: ch) {
         answer = answer + (j * BigUInt(index))
@@ -64,9 +64,9 @@ public class Coder58 {
         return []
       }
     }
-
+    
     let bytes = answer.serialize()
-
+    
     return Array(bytes)
   }
 }
